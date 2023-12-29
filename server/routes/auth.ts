@@ -2,10 +2,11 @@ import jwt from "jsonwebtoken";
 import express from 'express';
 import { authenticateJwt, SECRET } from "../middleware/";
 import { User } from "../db";
-
+import { signupInput } from "@164adityakumar/common"
 const router = express.Router();
 
   router.post('/signup', async (req, res) => {
+    let parsedinput = signupInput.parse(req.body);
     const { username, password } = req.body;
     const user = await User.findOne({ username });
     if (user) {
